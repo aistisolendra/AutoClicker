@@ -2,17 +2,17 @@
 {
     public class Bounds
     {
-        public int TopLeft { get; set; }
-        public int TopRight { get; set; }
-        public int BotLeft { get; set; }
-        public int BotRight { get; set; }
+        public int Top { get; set; }
+        public int Bot { get; set; }
+        public int Left { get; set; }
+        public int Right { get; set; }
 
         public Bounds()
         {
-            TopLeft = 0;
-            TopRight = 0;
-            BotLeft = 0;
-            BotRight = 0;
+            Top = 0;
+            Bot = 0;
+            Left = 0;
+            Right = 0;
         }
     }
 }
