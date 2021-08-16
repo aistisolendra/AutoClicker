@@ -4,6 +4,6 @@
     {
         CurrentPosition,
         BetweenBounds,
-        OnCoordinates
+        OnPosition
     }
 }
