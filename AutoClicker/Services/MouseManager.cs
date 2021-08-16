@@ -2,6 +2,7 @@
 using System.Runtime.InteropServices;
 using AutoClicker.Enums;
 using AutoClicker.Models;
+using AutoClicker.Structs;
 
 namespace AutoClicker.Services
 {
@@ -73,21 +74,44 @@ namespace AutoClicker.Services
             return clicker.ClickPosition.ClickPositionType switch
             {
                 ClickPositionType.CurrentPosition => GetCursorPosition(),
-                ClickPositionType.BetweenBounds => GetPointInBounds(clicker),
-                ClickPositionType.OnPosition => new MousePoint(clicker.ClickPosition.MousePositionToClick.X,
-                    clicker.ClickPosition.MousePositionToClick.Y),
+                ClickPositionType.BetweenBounds => GetPointInBounds(clicker.ClickPosition.ClickPositionBounds),
+                ClickPositionType.OnPosition => HandleOnPosition(clicker),
 
                 _ => throw new ArgumentOutOfRangeException(nameof(clicker.ClickPosition.ClickPositionType),
                     clicker.ClickPosition.ClickPositionType, null)
             };
         }
 
-        private MousePoint GetPointInBounds(BasicClicker clicker)
+        private MousePoint HandleOnPosition(BasicClicker clicker)
         {
-            int x = _rnd.Next(clicker.ClickPosition.ClickPositionBounds.Left,
-                clicker.ClickPosition.ClickPositionBounds.Right);
-            int y = _rnd.Next(clicker.ClickPosition.ClickPositionBounds.Top,
-                clicker.ClickPosition.ClickPositionBounds.Bot);
+            return clicker.ClickOptions.RandomizeClickingEnabled
+                ? GetPointAroundPosition(clicker)
+                : new MousePoint(clicker);
+        }
+
+        private MousePoint GetPointAroundPosition(BasicClicker clicker)
+        {
+            var newBounds = new Bounds
+            {
+                Top = clicker.ClickPosition.MousePositionToClick.Y -
+                      clicker.ClickOptions.RandomizeClickingBounds.Top,
+                Bot = clicker.ClickPosition.MousePositionToClick.Y +
+                      clicker.ClickOptions.RandomizeClickingBounds.Bot,
+                Left = clicker.ClickPosition.MousePositionToClick.X -
+                       clicker.ClickOptions.RandomizeClickingBounds.Left,
+                Right = clicker.ClickPosition.MousePositionToClick.X +
+                        clicker.ClickOptions.RandomizeClickingBounds.Right
+            };
+
+            newBounds.CheckBounds();
+
+            return GetPointInBounds(newBounds);
+        }
+
+        private MousePoint GetPointInBounds(Bounds bounds)
+        {
+            int x = _rnd.Next(bounds.Left, bounds.Right);
+            int y = _rnd.Next(bounds.Top, bounds.Bot);
 
             return new MousePoint(x, y);
         }
@@ -104,26 +128,7 @@ namespace AutoClicker.Services
 
         public void MouseEvent(MouseEventFlags value, MousePoint position)
         {
-            mouse_event
-                ((int) value,
-                    position.X,
-                    position.Y,
-                    0,
-                    0)
-                ;
-        }
-
-        [StructLayout(LayoutKind.Sequential)]
-        public struct MousePoint
-        {
-            public int X;
-            public int Y;
-
-            public MousePoint(int x, int y)
-            {
-                X = x;
-                Y = y;
-            }
+            mouse_event((int) value, position.X, position.Y, 0, 0);
         }
     }
 }

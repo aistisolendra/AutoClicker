@@ -95,6 +95,10 @@ namespace AutoClicker.Pages
                 _bindable.CreateTextBind(_basicClicker.ClickPosition.ClickPositionBounds, "Left"));
             ClickPositionRightNumericBox.DataBindings.Add(
                 _bindable.CreateTextBind(_basicClicker.ClickPosition.ClickPositionBounds, "Right"));
+            ClickPositionXNumericBox.DataBindings.Add(
+                _bindable.CreateTextBind(_basicClicker.ClickPosition.MousePositionToClick, "X"));
+            ClickPositionYNumericBox.DataBindings.Add(
+                _bindable.CreateTextBind(_basicClicker.ClickPosition.MousePositionToClick, "Y"));
         }
 
         private void SetClickOptionBindings()
@@ -112,13 +116,13 @@ namespace AutoClicker.Pages
                 "TimeBetweenClickTypes"));
             RandomizeXYCheckBox.DataBindings.Add(_bindable.CreateCheckedBind(_basicClicker.ClickOptions,
                 "RandomizeClickingEnabled"));
-            ClickOptionsTopLeftNumericBox.DataBindings.Add(
+            ClickOptionsTopNumericBox.DataBindings.Add(
                 _bindable.CreateTextBind(_basicClicker.ClickOptions.RandomizeClickingBounds, "Top"));
-            ClickOptionsTopRightNumericBox.DataBindings.Add(
+            ClickOptionsBotNumericBox.DataBindings.Add(
                 _bindable.CreateTextBind(_basicClicker.ClickOptions.RandomizeClickingBounds, "Bot"));
-            ClickOptionsBotLeftNumericBox.DataBindings.Add(
+            ClickOptionsLeftNumericBox.DataBindings.Add(
                 _bindable.CreateTextBind(_basicClicker.ClickOptions.RandomizeClickingBounds, "Left"));
-            ClickOptionsBotRightNumericBox.DataBindings.Add(
+            ClickOptionsRightNumericBox.DataBindings.Add(
                 _bindable.CreateTextBind(_basicClicker.ClickOptions.RandomizeClickingBounds, "Right"));
         }
 
@@ -148,16 +152,16 @@ namespace AutoClicker.Pages
                 _bindable.CreateEnabledBindFromChecked(ClickWorkingCheckBox));
             ClickWorkingPercentageLabel.DataBindings.Add(_bindable.CreateEnabledBindFromChecked(ClickWorkingCheckBox));
             RandomizeXYCheckBox.DataBindings.Add(_bindable.CreateEnabledBindFromChecked(ClickOnPositionButton));
-            ClickOptionsTopLeftNumericBox.DataBindings.Add(_bindable.CreateEnabledBindFromChecked(RandomizeXYCheckBox));
-            ClickOptionsTopRightNumericBox.DataBindings.Add(
+            ClickOptionsTopNumericBox.DataBindings.Add(_bindable.CreateEnabledBindFromChecked(RandomizeXYCheckBox));
+            ClickOptionsBotNumericBox.DataBindings.Add(
                 _bindable.CreateEnabledBindFromChecked(RandomizeXYCheckBox));
-            ClickOptionsBotLeftNumericBox.DataBindings.Add(_bindable.CreateEnabledBindFromChecked(RandomizeXYCheckBox));
-            ClickOptionsBotRightNumericBox.DataBindings.Add(
+            ClickOptionsLeftNumericBox.DataBindings.Add(_bindable.CreateEnabledBindFromChecked(RandomizeXYCheckBox));
+            ClickOptionsRightNumericBox.DataBindings.Add(
                 _bindable.CreateEnabledBindFromChecked(RandomizeXYCheckBox));
-            ClickOptionsTopLeftLabel.DataBindings.Add(_bindable.CreateEnabledBindFromChecked(RandomizeXYCheckBox));
-            ClickOptionsTopRightLabel.DataBindings.Add(_bindable.CreateEnabledBindFromChecked(RandomizeXYCheckBox));
-            ClickOptionsBotLeftLabel.DataBindings.Add(_bindable.CreateEnabledBindFromChecked(RandomizeXYCheckBox));
-            ClickOptionsBotRightLabel.DataBindings.Add(_bindable.CreateEnabledBindFromChecked(RandomizeXYCheckBox));
+            ClickOptionsTopLabel.DataBindings.Add(_bindable.CreateEnabledBindFromChecked(RandomizeXYCheckBox));
+            ClickOptionsBotLabel.DataBindings.Add(_bindable.CreateEnabledBindFromChecked(RandomizeXYCheckBox));
+            ClickOptionsLeftLabel.DataBindings.Add(_bindable.CreateEnabledBindFromChecked(RandomizeXYCheckBox));
+            ClickOptionsRightLabel.DataBindings.Add(_bindable.CreateEnabledBindFromChecked(RandomizeXYCheckBox));
         }
 
         private void SetStatisticsBinds()
@@ -263,6 +267,7 @@ namespace AutoClicker.Pages
                 case ClickRepeatType.RepeatUntilStopped:
                     ++TimesClickedNumericBox.Value;
                     break;
+
                 case ClickRepeatType.RepeatTimes:
                 {
                     decimal temp = ++TimesClickedNumericBox.Value;
@@ -271,6 +276,7 @@ namespace AutoClicker.Pages
                         _basicClicker.BasicClickerTimer.Stop();
                     break;
                 }
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }

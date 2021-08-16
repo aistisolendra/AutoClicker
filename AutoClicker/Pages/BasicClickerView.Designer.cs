@@ -49,14 +49,14 @@ namespace AutoClicker.Pages
             this.ClickOptionsRightLayout = new System.Windows.Forms.TableLayoutPanel();
             this.RandomizeXYCheckBox = new System.Windows.Forms.CheckBox();
             this.ClickOptionsRightInnerLayout = new System.Windows.Forms.TableLayoutPanel();
-            this.ClickOptionsTopRightNumericBox = new System.Windows.Forms.NumericUpDown();
-            this.ClickOptionsTopLeftNumericBox = new System.Windows.Forms.NumericUpDown();
-            this.ClickOptionsBotRightNumericBox = new System.Windows.Forms.NumericUpDown();
-            this.ClickOptionsBotRightLabel = new System.Windows.Forms.Label();
-            this.ClickOptionsBotLeftLabel = new System.Windows.Forms.Label();
-            this.ClickOptionsTopRightLabel = new System.Windows.Forms.Label();
-            this.ClickOptionsTopLeftLabel = new System.Windows.Forms.Label();
-            this.ClickOptionsBotLeftNumericBox = new System.Windows.Forms.NumericUpDown();
+            this.ClickOptionsBotNumericBox = new System.Windows.Forms.NumericUpDown();
+            this.ClickOptionsTopNumericBox = new System.Windows.Forms.NumericUpDown();
+            this.ClickOptionsRightNumericBox = new System.Windows.Forms.NumericUpDown();
+            this.ClickOptionsRightLabel = new System.Windows.Forms.Label();
+            this.ClickOptionsLeftLabel = new System.Windows.Forms.Label();
+            this.ClickOptionsBotLabel = new System.Windows.Forms.Label();
+            this.ClickOptionsTopLabel = new System.Windows.Forms.Label();
+            this.ClickOptionsLeftNumericBox = new System.Windows.Forms.NumericUpDown();
             this.TopLayout = new System.Windows.Forms.TableLayoutPanel();
             this.TimeIntervalLabel = new System.Windows.Forms.Label();
             this.TimeIntervalLayout1 = new System.Windows.Forms.TableLayoutPanel();
@@ -128,10 +128,10 @@ namespace AutoClicker.Pages
             ((System.ComponentModel.ISupportInitialize)(this.ClickWorkingPercentageNumericBox)).BeginInit();
             this.ClickOptionsRightLayout.SuspendLayout();
             this.ClickOptionsRightInnerLayout.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ClickOptionsTopRightNumericBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ClickOptionsTopLeftNumericBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ClickOptionsBotRightNumericBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ClickOptionsBotLeftNumericBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ClickOptionsBotNumericBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ClickOptionsTopNumericBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ClickOptionsRightNumericBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ClickOptionsLeftNumericBox)).BeginInit();
             this.TopLayout.SuspendLayout();
             this.TimeIntervalLayout1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SecondsNumericBox)).BeginInit();
@@ -417,7 +417,7 @@ namespace AutoClicker.Pages
             this.RandomizeXYCheckBox.Name = "RandomizeXYCheckBox";
             this.RandomizeXYCheckBox.Size = new System.Drawing.Size(94, 69);
             this.RandomizeXYCheckBox.TabIndex = 2;
-            this.RandomizeXYCheckBox.Text = "Randomize XY Clicking Coordinates Around Set Coordinates";
+            this.RandomizeXYCheckBox.Text = "Randomize XY Clicking Around Position";
             this.RandomizeXYCheckBox.UseVisualStyleBackColor = true;
             // 
             // ClickOptionsRightInnerLayout
@@ -430,14 +430,14 @@ namespace AutoClicker.Pages
             this.ClickOptionsRightInnerLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.ClickOptionsRightInnerLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.ClickOptionsRightInnerLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.ClickOptionsRightInnerLayout.Controls.Add(this.ClickOptionsTopRightNumericBox, 3, 0);
-            this.ClickOptionsRightInnerLayout.Controls.Add(this.ClickOptionsTopLeftNumericBox, 1, 0);
-            this.ClickOptionsRightInnerLayout.Controls.Add(this.ClickOptionsBotRightNumericBox, 3, 1);
-            this.ClickOptionsRightInnerLayout.Controls.Add(this.ClickOptionsBotRightLabel, 2, 1);
-            this.ClickOptionsRightInnerLayout.Controls.Add(this.ClickOptionsBotLeftLabel, 0, 1);
-            this.ClickOptionsRightInnerLayout.Controls.Add(this.ClickOptionsTopRightLabel, 2, 0);
-            this.ClickOptionsRightInnerLayout.Controls.Add(this.ClickOptionsTopLeftLabel, 0, 0);
-            this.ClickOptionsRightInnerLayout.Controls.Add(this.ClickOptionsBotLeftNumericBox, 1, 1);
+            this.ClickOptionsRightInnerLayout.Controls.Add(this.ClickOptionsBotNumericBox, 3, 0);
+            this.ClickOptionsRightInnerLayout.Controls.Add(this.ClickOptionsTopNumericBox, 1, 0);
+            this.ClickOptionsRightInnerLayout.Controls.Add(this.ClickOptionsRightNumericBox, 3, 1);
+            this.ClickOptionsRightInnerLayout.Controls.Add(this.ClickOptionsRightLabel, 2, 1);
+            this.ClickOptionsRightInnerLayout.Controls.Add(this.ClickOptionsLeftLabel, 0, 1);
+            this.ClickOptionsRightInnerLayout.Controls.Add(this.ClickOptionsBotLabel, 2, 0);
+            this.ClickOptionsRightInnerLayout.Controls.Add(this.ClickOptionsTopLabel, 0, 0);
+            this.ClickOptionsRightInnerLayout.Controls.Add(this.ClickOptionsLeftNumericBox, 1, 1);
             this.ClickOptionsRightInnerLayout.Location = new System.Drawing.Point(103, 3);
             this.ClickOptionsRightInnerLayout.Name = "ClickOptionsRightInnerLayout";
             this.ClickOptionsRightInnerLayout.RowCount = 2;
@@ -447,97 +447,97 @@ namespace AutoClicker.Pages
             this.ClickOptionsRightInnerLayout.Size = new System.Drawing.Size(345, 114);
             this.ClickOptionsRightInnerLayout.TabIndex = 0;
             // 
-            // ClickOptionsTopRightNumericBox
+            // ClickOptionsBotNumericBox
             // 
-            this.ClickOptionsTopRightNumericBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.ClickOptionsTopRightNumericBox.Location = new System.Drawing.Point(225, 17);
-            this.ClickOptionsTopRightNumericBox.Maximum = new decimal(new int[] {
+            this.ClickOptionsBotNumericBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.ClickOptionsBotNumericBox.Location = new System.Drawing.Point(225, 17);
+            this.ClickOptionsBotNumericBox.Maximum = new decimal(new int[] {
             1000000,
             0,
             0,
             0});
-            this.ClickOptionsTopRightNumericBox.Name = "ClickOptionsTopRightNumericBox";
-            this.ClickOptionsTopRightNumericBox.Size = new System.Drawing.Size(60, 23);
-            this.ClickOptionsTopRightNumericBox.TabIndex = 7;
+            this.ClickOptionsBotNumericBox.Name = "ClickOptionsBotNumericBox";
+            this.ClickOptionsBotNumericBox.Size = new System.Drawing.Size(60, 23);
+            this.ClickOptionsBotNumericBox.TabIndex = 7;
             // 
-            // ClickOptionsTopLeftNumericBox
+            // ClickOptionsTopNumericBox
             // 
-            this.ClickOptionsTopLeftNumericBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.ClickOptionsTopLeftNumericBox.Location = new System.Drawing.Point(53, 17);
-            this.ClickOptionsTopLeftNumericBox.Maximum = new decimal(new int[] {
+            this.ClickOptionsTopNumericBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.ClickOptionsTopNumericBox.Location = new System.Drawing.Point(53, 17);
+            this.ClickOptionsTopNumericBox.Maximum = new decimal(new int[] {
             1000000,
             0,
             0,
             0});
-            this.ClickOptionsTopLeftNumericBox.Name = "ClickOptionsTopLeftNumericBox";
-            this.ClickOptionsTopLeftNumericBox.Size = new System.Drawing.Size(60, 23);
-            this.ClickOptionsTopLeftNumericBox.TabIndex = 7;
+            this.ClickOptionsTopNumericBox.Name = "ClickOptionsTopNumericBox";
+            this.ClickOptionsTopNumericBox.Size = new System.Drawing.Size(60, 23);
+            this.ClickOptionsTopNumericBox.TabIndex = 7;
             // 
-            // ClickOptionsBotRightNumericBox
+            // ClickOptionsRightNumericBox
             // 
-            this.ClickOptionsBotRightNumericBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.ClickOptionsBotRightNumericBox.Location = new System.Drawing.Point(225, 74);
-            this.ClickOptionsBotRightNumericBox.Maximum = new decimal(new int[] {
+            this.ClickOptionsRightNumericBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.ClickOptionsRightNumericBox.Location = new System.Drawing.Point(225, 74);
+            this.ClickOptionsRightNumericBox.Maximum = new decimal(new int[] {
             1000000,
             0,
             0,
             0});
-            this.ClickOptionsBotRightNumericBox.Name = "ClickOptionsBotRightNumericBox";
-            this.ClickOptionsBotRightNumericBox.Size = new System.Drawing.Size(60, 23);
-            this.ClickOptionsBotRightNumericBox.TabIndex = 15;
+            this.ClickOptionsRightNumericBox.Name = "ClickOptionsRightNumericBox";
+            this.ClickOptionsRightNumericBox.Size = new System.Drawing.Size(60, 23);
+            this.ClickOptionsRightNumericBox.TabIndex = 15;
             // 
-            // ClickOptionsBotRightLabel
+            // ClickOptionsRightLabel
             // 
-            this.ClickOptionsBotRightLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.ClickOptionsBotRightLabel.AutoSize = true;
-            this.ClickOptionsBotRightLabel.Location = new System.Drawing.Point(175, 70);
-            this.ClickOptionsBotRightLabel.Name = "ClickOptionsBotRightLabel";
-            this.ClickOptionsBotRightLabel.Size = new System.Drawing.Size(44, 30);
-            this.ClickOptionsBotRightLabel.TabIndex = 12;
-            this.ClickOptionsBotRightLabel.Text = "Bot Right";
+            this.ClickOptionsRightLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.ClickOptionsRightLabel.AutoSize = true;
+            this.ClickOptionsRightLabel.Location = new System.Drawing.Point(175, 78);
+            this.ClickOptionsRightLabel.Name = "ClickOptionsRightLabel";
+            this.ClickOptionsRightLabel.Size = new System.Drawing.Size(44, 15);
+            this.ClickOptionsRightLabel.TabIndex = 12;
+            this.ClickOptionsRightLabel.Text = "Right";
             // 
-            // ClickOptionsBotLeftLabel
+            // ClickOptionsLeftLabel
             // 
-            this.ClickOptionsBotLeftLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.ClickOptionsBotLeftLabel.AutoSize = true;
-            this.ClickOptionsBotLeftLabel.Location = new System.Drawing.Point(3, 70);
-            this.ClickOptionsBotLeftLabel.Name = "ClickOptionsBotLeftLabel";
-            this.ClickOptionsBotLeftLabel.Size = new System.Drawing.Size(44, 30);
-            this.ClickOptionsBotLeftLabel.TabIndex = 11;
-            this.ClickOptionsBotLeftLabel.Text = "Bot Left";
+            this.ClickOptionsLeftLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.ClickOptionsLeftLabel.AutoSize = true;
+            this.ClickOptionsLeftLabel.Location = new System.Drawing.Point(3, 78);
+            this.ClickOptionsLeftLabel.Name = "ClickOptionsLeftLabel";
+            this.ClickOptionsLeftLabel.Size = new System.Drawing.Size(44, 15);
+            this.ClickOptionsLeftLabel.TabIndex = 11;
+            this.ClickOptionsLeftLabel.Text = "Left";
             // 
-            // ClickOptionsTopRightLabel
+            // ClickOptionsBotLabel
             // 
-            this.ClickOptionsTopRightLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.ClickOptionsTopRightLabel.AutoSize = true;
-            this.ClickOptionsTopRightLabel.Location = new System.Drawing.Point(175, 13);
-            this.ClickOptionsTopRightLabel.Name = "ClickOptionsTopRightLabel";
-            this.ClickOptionsTopRightLabel.Size = new System.Drawing.Size(44, 30);
-            this.ClickOptionsTopRightLabel.TabIndex = 10;
-            this.ClickOptionsTopRightLabel.Text = "Top Right";
+            this.ClickOptionsBotLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.ClickOptionsBotLabel.AutoSize = true;
+            this.ClickOptionsBotLabel.Location = new System.Drawing.Point(175, 21);
+            this.ClickOptionsBotLabel.Name = "ClickOptionsBotLabel";
+            this.ClickOptionsBotLabel.Size = new System.Drawing.Size(44, 15);
+            this.ClickOptionsBotLabel.TabIndex = 10;
+            this.ClickOptionsBotLabel.Text = "Bot";
             // 
-            // ClickOptionsTopLeftLabel
+            // ClickOptionsTopLabel
             // 
-            this.ClickOptionsTopLeftLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.ClickOptionsTopLeftLabel.AutoSize = true;
-            this.ClickOptionsTopLeftLabel.Location = new System.Drawing.Point(3, 13);
-            this.ClickOptionsTopLeftLabel.Name = "ClickOptionsTopLeftLabel";
-            this.ClickOptionsTopLeftLabel.Size = new System.Drawing.Size(44, 30);
-            this.ClickOptionsTopLeftLabel.TabIndex = 9;
-            this.ClickOptionsTopLeftLabel.Text = "Top Left";
+            this.ClickOptionsTopLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.ClickOptionsTopLabel.AutoSize = true;
+            this.ClickOptionsTopLabel.Location = new System.Drawing.Point(3, 21);
+            this.ClickOptionsTopLabel.Name = "ClickOptionsTopLabel";
+            this.ClickOptionsTopLabel.Size = new System.Drawing.Size(44, 15);
+            this.ClickOptionsTopLabel.TabIndex = 9;
+            this.ClickOptionsTopLabel.Text = "Top";
             // 
-            // ClickOptionsBotLeftNumericBox
+            // ClickOptionsLeftNumericBox
             // 
-            this.ClickOptionsBotLeftNumericBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.ClickOptionsBotLeftNumericBox.Location = new System.Drawing.Point(53, 74);
-            this.ClickOptionsBotLeftNumericBox.Maximum = new decimal(new int[] {
+            this.ClickOptionsLeftNumericBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.ClickOptionsLeftNumericBox.Location = new System.Drawing.Point(53, 74);
+            this.ClickOptionsLeftNumericBox.Maximum = new decimal(new int[] {
             1000000,
             0,
             0,
             0});
-            this.ClickOptionsBotLeftNumericBox.Name = "ClickOptionsBotLeftNumericBox";
-            this.ClickOptionsBotLeftNumericBox.Size = new System.Drawing.Size(60, 23);
-            this.ClickOptionsBotLeftNumericBox.TabIndex = 14;
+            this.ClickOptionsLeftNumericBox.Name = "ClickOptionsLeftNumericBox";
+            this.ClickOptionsLeftNumericBox.Size = new System.Drawing.Size(60, 23);
+            this.ClickOptionsLeftNumericBox.TabIndex = 14;
             // 
             // TopLayout
             // 
@@ -1417,10 +1417,10 @@ namespace AutoClicker.Pages
             this.ClickOptionsRightLayout.ResumeLayout(false);
             this.ClickOptionsRightInnerLayout.ResumeLayout(false);
             this.ClickOptionsRightInnerLayout.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ClickOptionsTopRightNumericBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ClickOptionsTopLeftNumericBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ClickOptionsBotRightNumericBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ClickOptionsBotLeftNumericBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ClickOptionsBotNumericBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ClickOptionsTopNumericBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ClickOptionsRightNumericBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ClickOptionsLeftNumericBox)).EndInit();
             this.TopLayout.ResumeLayout(false);
             this.TopLayout.PerformLayout();
             this.TimeIntervalLayout1.ResumeLayout(false);
@@ -1544,18 +1544,18 @@ namespace AutoClicker.Pages
         private System.Windows.Forms.NumericUpDown ClickPositionXNumericBox;
         private System.Windows.Forms.NumericUpDown ClickPositionYNumericBox;
         private System.Windows.Forms.TableLayoutPanel ClickOptionsRightInnerLayout;
-        private System.Windows.Forms.Label ClickOptionsBotRightLabel;
-        private System.Windows.Forms.Label ClickOptionsBotLeftLabel;
-        private System.Windows.Forms.Label ClickOptionsTopRightLabel;
-        private System.Windows.Forms.Label ClickOptionsTopLeftLabel;
+        private System.Windows.Forms.Label ClickOptionsRightLabel;
+        private System.Windows.Forms.Label ClickOptionsLeftLabel;
+        private System.Windows.Forms.Label ClickOptionsBotLabel;
+        private System.Windows.Forms.Label ClickOptionsTopLabel;
         private System.Windows.Forms.NumericUpDown ClickPositionRightNumericBox;
         private System.Windows.Forms.NumericUpDown ClickPositionLeftNumericBox;
         private System.Windows.Forms.NumericUpDown ClickPositionBotNumericBox;
         private System.Windows.Forms.NumericUpDown ClickPositionTopNumericBox;
-        private System.Windows.Forms.NumericUpDown ClickOptionsTopRightNumericBox;
-        private System.Windows.Forms.NumericUpDown ClickOptionsTopLeftNumericBox;
-        private System.Windows.Forms.NumericUpDown ClickOptionsBotRightNumericBox;
-        private System.Windows.Forms.NumericUpDown ClickOptionsBotLeftNumericBox;
+        private System.Windows.Forms.NumericUpDown ClickOptionsBotNumericBox;
+        private System.Windows.Forms.NumericUpDown ClickOptionsTopNumericBox;
+        private System.Windows.Forms.NumericUpDown ClickOptionsRightNumericBox;
+        private System.Windows.Forms.NumericUpDown ClickOptionsLeftNumericBox;
         private System.Windows.Forms.Button VisualizeButton;
         private System.Windows.Forms.Button CheckCursorCopyPosition;
         private System.Windows.Forms.NumericUpDown TimesClickedNumericBox;

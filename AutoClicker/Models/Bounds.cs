@@ -14,5 +14,17 @@
             Left = 0;
             Right = 0;
         }
+
+        public void CheckBounds()
+        {
+            if (Top < 0)
+                Top = 0;
+            if (Bot < 0)
+                Bot = 0;
+            if (Left < 0)
+                Left = 0;
+            if (Right < 0)
+                Right = 0;
+        }
     }
 }
