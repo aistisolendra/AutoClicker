@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Timers;
 using AutoClicker.Enums;
 using AutoClicker.Models;
-using Timer = System.Timers.Timer;
 
 namespace AutoClicker.Services
 {
     public class MouseManager
     {
+        private readonly Random _rnd = new();
+
         [Flags]
         public enum MouseEventFlags
         {
@@ -43,47 +43,73 @@ namespace AutoClicker.Services
             SetCursorPos(point.X, point.Y);
         }
 
-        public void Click(ButtonType buttonType, int timesToClick, int timeBetweenClicks)
+        public void SetCursorPosition(MousePoint point)
         {
-            switch (buttonType)
-            {
-                case ButtonType.LButton:
-                    PerformClicks(MouseEventFlags.LeftDown, MouseEventFlags.LeftUp, timesToClick, timeBetweenClicks);
-                    break;
-                case ButtonType.MButton:
-                    PerformClicks(MouseEventFlags.MiddleDown, MouseEventFlags.MiddleUp, timesToClick,
-                        timeBetweenClicks);
-                    break;
-                case ButtonType.RButton:
-                    PerformClicks(MouseEventFlags.RightDown, MouseEventFlags.RightUp, timesToClick, timeBetweenClicks);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(buttonType), buttonType, null);
-            }
+            SetCursorPos(point.X, point.Y);
         }
 
-        private void PerformClicks(MouseEventFlags mouseDown, MouseEventFlags mouseUp, int timesToClick,
-            int timeBetweenClicks)
+        public void Click(BasicClicker clicker)
         {
-            for (int i = 0; i < timesToClick; ++i)
+            var mouseEvents = GetMouseEvents(clicker);
+            var position = HandlePosition(clicker);
+
+            for (int i = 0; i < clicker.ClickTimes; ++i)
+                if (clicker.ClickPosition.ClickPositionType != ClickPositionType.CurrentPosition)
+                    SetCursorPosition(position);
+
+            MouseEvent(mouseEvents.MouseDown, position);
+            MouseEvent(mouseEvents.MouseUp, position);
+        }
+
+        private static MouseEvents GetMouseEvents(BasicClicker clicker)
+        {
+            return clicker.ClickOptions.ButtonType switch
             {
-                MouseEvent(mouseDown);
-                MouseEvent(mouseUp);
-            }
+                ButtonType.LButton => new MouseEvents(MouseEventFlags.LeftDown, MouseEventFlags.LeftUp),
+                ButtonType.MButton => new MouseEvents(MouseEventFlags.MiddleDown, MouseEventFlags.MiddleUp),
+                ButtonType.RButton => new MouseEvents(MouseEventFlags.RightDown, MouseEventFlags.RightUp),
+
+                _ => throw new ArgumentOutOfRangeException(nameof(clicker.ClickOptions.ButtonType),
+                    clicker.ClickOptions.ButtonType, null)
+            };
+        }
+
+        private MousePoint HandlePosition(BasicClicker clicker)
+        {
+            return clicker.ClickPosition.ClickPositionType switch
+            {
+                ClickPositionType.CurrentPosition => GetCursorPosition(),
+                ClickPositionType.BetweenBounds => GetPointInBounds(clicker),
+                ClickPositionType.OnPosition => new MousePoint(clicker.ClickPosition.MousePositionToClick.X,
+                    clicker.ClickPosition.MousePositionToClick.Y),
+
+                _ => throw new ArgumentOutOfRangeException(nameof(clicker.ClickPosition.ClickPositionType),
+                    clicker.ClickPosition.ClickPositionType, null)
+            };
+        }
+
+        private MousePoint GetPointInBounds(BasicClicker clicker)
+        {
+            int x = _rnd.Next(clicker.ClickPosition.ClickPositionBounds.Left,
+                clicker.ClickPosition.ClickPositionBounds.Right);
+            int y = _rnd.Next(clicker.ClickPosition.ClickPositionBounds.Top,
+                clicker.ClickPosition.ClickPositionBounds.Bot);
+
+            return new MousePoint(x, y);
         }
 
         public MousePoint GetCursorPosition()
         {
-            MousePoint currentMousePoint;
-            bool gotPoint = GetCursorPos(out currentMousePoint);
-            if (!gotPoint) currentMousePoint = new MousePoint(0, 0);
+            bool gotPoint = GetCursorPos(out var currentMousePoint);
+
+            if (!gotPoint)
+                currentMousePoint = new MousePoint(0, 0);
+
             return currentMousePoint;
         }
 
-        public void MouseEvent(MouseEventFlags value)
+        public void MouseEvent(MouseEventFlags value, MousePoint position)
         {
-            var position = GetCursorPosition();
-
             mouse_event
                 ((int) value,
                     position.X,
@@ -103,6 +129,24 @@ namespace AutoClicker.Services
             {
                 X = x;
                 Y = y;
+            }
+        }
+
+        public class MouseEvents
+        {
+            public MouseEventFlags MouseDown { get; set; }
+            public MouseEventFlags MouseUp { get; set; }
+
+            public MouseEvents()
+            {
+                MouseDown = MouseEventFlags.LeftDown;
+                MouseUp = MouseEventFlags.LeftUp;
+            }
+
+            public MouseEvents(MouseEventFlags mouseDown, MouseEventFlags mouseUp)
+            {
+                MouseDown = mouseDown;
+                MouseUp = mouseUp;
             }
         }
     }

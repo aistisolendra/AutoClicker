@@ -199,7 +199,7 @@ namespace AutoClicker.Pages
             bool state = !ClickOnPositionButton.Checked;
             ClickCurrentPositionButton.Checked = state;
             ClickBoundsButton.Checked = state;
-            _basicClicker.ClickPosition.ClickPositionType = ClickPositionType.CurrentPosition;
+            _basicClicker.ClickPosition.ClickPositionType = ClickPositionType.OnPosition;
         }
 
         private void CheckCursorPositionButton_Click(object sender, EventArgs e)
