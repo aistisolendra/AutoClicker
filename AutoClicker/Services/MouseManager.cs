@@ -7,19 +7,11 @@ namespace AutoClicker.Services
 {
     public class MouseManager
     {
-        private readonly Random _rnd = new();
+        private readonly Random _rnd;
 
-        [Flags]
-        public enum MouseEventFlags
+        public MouseManager()
         {
-            LeftDown = 0x00000002,
-            LeftUp = 0x00000004,
-            MiddleDown = 0x00000020,
-            MiddleUp = 0x00000040,
-            Move = 0x00000001,
-            Absolute = 0x00008000,
-            RightDown = 0x00000008,
-            RightUp = 0x00000010
+            _rnd = new Random();
         }
 
         [DllImport("user32.dll", EntryPoint = "SetCursorPos")]
@@ -54,11 +46,13 @@ namespace AutoClicker.Services
             var position = HandlePosition(clicker);
 
             for (int i = 0; i < clicker.ClickTimes; ++i)
+            {
                 if (clicker.ClickPosition.ClickPositionType != ClickPositionType.CurrentPosition)
                     SetCursorPosition(position);
 
-            MouseEvent(mouseEvents.MouseDown, position);
-            MouseEvent(mouseEvents.MouseUp, position);
+                MouseEvent(mouseEvents.MouseDown, position);
+                MouseEvent(mouseEvents.MouseUp, position);
+            }
         }
 
         private static MouseEvents GetMouseEvents(BasicClicker clicker)
@@ -129,24 +123,6 @@ namespace AutoClicker.Services
             {
                 X = x;
                 Y = y;
-            }
-        }
-
-        public class MouseEvents
-        {
-            public MouseEventFlags MouseDown { get; set; }
-            public MouseEventFlags MouseUp { get; set; }
-
-            public MouseEvents()
-            {
-                MouseDown = MouseEventFlags.LeftDown;
-                MouseUp = MouseEventFlags.LeftUp;
-            }
-
-            public MouseEvents(MouseEventFlags mouseDown, MouseEventFlags mouseUp)
-            {
-                MouseDown = mouseDown;
-                MouseUp = mouseUp;
             }
         }
     }
