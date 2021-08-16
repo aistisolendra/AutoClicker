@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Timers;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using AutoClicker.Enums;
 using AutoClicker.Models;
 using AutoClicker.Services;
@@ -12,7 +13,7 @@ namespace AutoClicker.Pages
         private readonly BasicClicker _basicClicker;
         private readonly Bindable _bindable;
         private readonly MouseManager _mouseManager;
-        private readonly int _positionCheckInterval = 50;
+        private const int PositionCheckInterval = 50;
 
         public BasicClickerView(BasicClicker basicClicker, Bindable bindable, MouseManager mouseManager)
         {
@@ -40,10 +41,10 @@ namespace AutoClicker.Pages
 
         private void SetEvents()
         {
-            _basicClicker.CheckCursorPosition.Timer.Interval = _positionCheckInterval;
+            _basicClicker.CheckCursorPosition.Timer.Interval = PositionCheckInterval;
             _basicClicker.CheckCursorPosition.Timer.Tick += OnElapsedCheckPos;
 
-            _basicClicker.ClickPosition.Timer.Interval = _positionCheckInterval;
+            _basicClicker.ClickPosition.Timer.Interval = PositionCheckInterval;
             _basicClicker.ClickPosition.Timer.Tick += OnElapsedCheckPos;
 
             _basicClicker.BasicClickerTimer.Interval = 1;
@@ -54,6 +55,7 @@ namespace AutoClicker.Pages
         {
             SetTimeIntervalBindings();
             SetCursorPositionCheckBindings();
+            SetRepeatBindings();
             SetClickPositionBindings();
             SetClickOptionBindings();
             SetStatisticsBinds();
@@ -69,6 +71,12 @@ namespace AutoClicker.Pages
                 "Milliseconds"));
         }
 
+        private void SetRepeatBindings()
+        {
+            RepeatTimesNumericBox.DataBindings.Add(_bindable.CreateTextBind(_basicClicker.ClickRepeat,
+                "ClickRepeatTimes"));
+        }
+
         private void SetCursorPositionCheckBindings()
         {
             CursorPositionXNumericBox.DataBindings.Add(
@@ -79,14 +87,14 @@ namespace AutoClicker.Pages
 
         private void SetClickPositionBindings()
         {
-            ClickPositionTopLeftNumericBox.DataBindings.Add(
-                _bindable.CreateTextBind(_basicClicker.ClickPosition.ClickPositionBounds, "TopLeft"));
-            ClickPositionTopRightNumericBox.DataBindings.Add(
-                _bindable.CreateTextBind(_basicClicker.ClickPosition.ClickPositionBounds, "TopRight"));
-            ClickPositionBotLeftNumericBox.DataBindings.Add(
-                _bindable.CreateTextBind(_basicClicker.ClickPosition.ClickPositionBounds, "BotLeft"));
-            ClickPositionBotRightNumericBox.DataBindings.Add(
-                _bindable.CreateTextBind(_basicClicker.ClickPosition.ClickPositionBounds, "BotRight"));
+            ClickPositionTopNumericBox.DataBindings.Add(
+                _bindable.CreateTextBind(_basicClicker.ClickPosition.ClickPositionBounds, "Top"));
+            ClickPositionBotNumericBox.DataBindings.Add(
+                _bindable.CreateTextBind(_basicClicker.ClickPosition.ClickPositionBounds, "Bot"));
+            ClickPositionLeftNumericBox.DataBindings.Add(
+                _bindable.CreateTextBind(_basicClicker.ClickPosition.ClickPositionBounds, "Left"));
+            ClickPositionRightNumericBox.DataBindings.Add(
+                _bindable.CreateTextBind(_basicClicker.ClickPosition.ClickPositionBounds, "Right"));
         }
 
         private void SetClickOptionBindings()
@@ -105,13 +113,13 @@ namespace AutoClicker.Pages
             RandomizeXYCheckBox.DataBindings.Add(_bindable.CreateCheckedBind(_basicClicker.ClickOptions,
                 "RandomizeClickingEnabled"));
             ClickOptionsTopLeftNumericBox.DataBindings.Add(
-                _bindable.CreateTextBind(_basicClicker.ClickOptions.RandomizeClickingBounds, "TopLeft"));
+                _bindable.CreateTextBind(_basicClicker.ClickOptions.RandomizeClickingBounds, "Top"));
             ClickOptionsTopRightNumericBox.DataBindings.Add(
-                _bindable.CreateTextBind(_basicClicker.ClickOptions.RandomizeClickingBounds, "TopRight"));
+                _bindable.CreateTextBind(_basicClicker.ClickOptions.RandomizeClickingBounds, "Bot"));
             ClickOptionsBotLeftNumericBox.DataBindings.Add(
-                _bindable.CreateTextBind(_basicClicker.ClickOptions.RandomizeClickingBounds, "BotLeft"));
+                _bindable.CreateTextBind(_basicClicker.ClickOptions.RandomizeClickingBounds, "Left"));
             ClickOptionsBotRightNumericBox.DataBindings.Add(
-                _bindable.CreateTextBind(_basicClicker.ClickOptions.RandomizeClickingBounds, "BotRight"));
+                _bindable.CreateTextBind(_basicClicker.ClickOptions.RandomizeClickingBounds, "Right"));
         }
 
         private void SetVisualBinds()
@@ -121,14 +129,14 @@ namespace AutoClicker.Pages
             RepeatTimesNumericBox.DataBindings.Add(_bindable.CreateEnabledBindFromChecked(RepeatTimesButton));
 
             // Click Position
-            ClickPositionTopLeftNumericBox.DataBindings.Add(_bindable.CreateEnabledBindFromChecked(ClickBoundsButton));
-            ClickPositionTopRightNumericBox.DataBindings.Add(_bindable.CreateEnabledBindFromChecked(ClickBoundsButton));
-            ClickPositionBotLeftNumericBox.DataBindings.Add(_bindable.CreateEnabledBindFromChecked(ClickBoundsButton));
-            ClickPositionBotRightNumericBox.DataBindings.Add(_bindable.CreateEnabledBindFromChecked(ClickBoundsButton));
-            ClickPositionTopLeftLabel.DataBindings.Add(_bindable.CreateEnabledBindFromChecked(ClickBoundsButton));
-            ClickPositionTopRightLabel.DataBindings.Add(_bindable.CreateEnabledBindFromChecked(ClickBoundsButton));
-            ClickPositionBotLeftLabel.DataBindings.Add(_bindable.CreateEnabledBindFromChecked(ClickBoundsButton));
-            ClickPositionBotRightLabel.DataBindings.Add(_bindable.CreateEnabledBindFromChecked(ClickBoundsButton));
+            ClickPositionTopNumericBox.DataBindings.Add(_bindable.CreateEnabledBindFromChecked(ClickBoundsButton));
+            ClickPositionBotNumericBox.DataBindings.Add(_bindable.CreateEnabledBindFromChecked(ClickBoundsButton));
+            ClickPositionLeftNumericBox.DataBindings.Add(_bindable.CreateEnabledBindFromChecked(ClickBoundsButton));
+            ClickPositionRightNumericBox.DataBindings.Add(_bindable.CreateEnabledBindFromChecked(ClickBoundsButton));
+            ClickPositionTopLabel.DataBindings.Add(_bindable.CreateEnabledBindFromChecked(ClickBoundsButton));
+            ClickPositionBotLabel.DataBindings.Add(_bindable.CreateEnabledBindFromChecked(ClickBoundsButton));
+            ClickPositionLeftLabel.DataBindings.Add(_bindable.CreateEnabledBindFromChecked(ClickBoundsButton));
+            ClickPositionRightLabel.DataBindings.Add(_bindable.CreateEnabledBindFromChecked(ClickBoundsButton));
             ClickPositionXNumericBox.DataBindings.Add(_bindable.CreateEnabledBindFromChecked(ClickOnPositionButton));
             ClickPositionYNumericBox.DataBindings.Add(_bindable.CreateEnabledBindFromChecked(ClickOnPositionButton));
             ClickPositionXLabel.DataBindings.Add(_bindable.CreateEnabledBindFromChecked(ClickOnPositionButton));
@@ -220,7 +228,10 @@ namespace AutoClicker.Pages
             _basicClicker.ClickTimes = (int) _basicClicker.ClickOptions.ClickType + 1;
 
             if (!_basicClicker.BasicClickerTimer.Enabled)
+            {
+                TimesClickedNumericBox.Value = 0;
                 _basicClicker.BasicClickerTimer.Start();
+            }
         }
 
         private void StopButton_Click(object sender, EventArgs e)
@@ -238,10 +249,31 @@ namespace AutoClicker.Pages
 
         private void OnElapsedClick(object sender, EventArgs e)
         {
-            _mouseManager.Click(_basicClicker.ClickOptions.ButtonType, _basicClicker.ClickTimes,
-                _basicClicker.ClickOptions.TimeBetweenClickTypes);
+            _mouseManager.Click(_basicClicker);
 
-            ++TimesClickedNumericBox.Value;
+            HandleClickRepeat();
+
+            ButtonTypeLabel.Text = _basicClicker.ClickRepeat.ClickRepeatTimes.ToString();
+        }
+
+        private void HandleClickRepeat()
+        {
+            switch (_basicClicker.ClickRepeat.ClickRepeatType)
+            {
+                case ClickRepeatType.RepeatUntilStopped:
+                    ++TimesClickedNumericBox.Value;
+                    break;
+                case ClickRepeatType.RepeatTimes:
+                {
+                    decimal temp = ++TimesClickedNumericBox.Value;
+
+                    if (temp >= _basicClicker.ClickRepeat.ClickRepeatTimes)
+                        _basicClicker.BasicClickerTimer.Stop();
+                    break;
+                }
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         private void GetPositionButton_Click(object sender, EventArgs e)
