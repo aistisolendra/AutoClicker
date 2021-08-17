@@ -1,4 +1,6 @@
-﻿namespace AutoClicker.Models
+﻿using System;
+
+namespace AutoClicker.Models
 {
     public class TimeInterval
     {
@@ -13,6 +15,13 @@
             Minutes = 0;
             Seconds = 0;
             Milliseconds = 0;
+        }
+
+        public int ToMs()
+        {
+            return (int) TimeSpan.FromHours(Hours).TotalMilliseconds +
+                   (int) TimeSpan.FromMinutes(Minutes).TotalMilliseconds +
+                   (int) TimeSpan.FromSeconds(Seconds).TotalMilliseconds + Milliseconds;
         }
     }
 }
