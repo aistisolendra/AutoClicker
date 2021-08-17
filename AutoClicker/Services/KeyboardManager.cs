@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using AutoClicker.Enums;
+using AutoClicker.Models.EventModels;
+using AutoClicker.Models.KeyboardModels;
 
 namespace AutoClicker.Services
 {
@@ -12,40 +15,6 @@ namespace AutoClicker.Services
         [DllImport("user32.dll")]
         private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
 
-        private sealed class Window : NativeWindow, IDisposable
-        {
-            private static int WM_HOTKEY = 0x0312;
-
-            public Window()
-            {
-                CreateHandle(new CreateParams());
-            }
-
-            protected override void WndProc(ref Message m)
-            {
-                base.WndProc(ref m);
-
-                if (m.Msg == WM_HOTKEY)
-                {
-                    var key = (Keys) (((int) m.LParam >> 16) & 0xFFFF);
-                    var modifier = (ModifierKeys) ((int) m.LParam & 0xFFFF);
-
-                    KeyPressed?.Invoke(this, new KeyPressedEventArgs(modifier, key));
-                }
-            }
-
-            public event EventHandler<KeyPressedEventArgs> KeyPressed;
-
-            #region IDisposable Members
-
-            public void Dispose()
-            {
-                DestroyHandle();
-            }
-
-            #endregion
-        }
-
         private readonly Window _window = new();
         private int _currentId;
         public string KeyText = "";
@@ -55,7 +24,7 @@ namespace AutoClicker.Services
             _window.KeyPressed += delegate(object sender, KeyPressedEventArgs args) { KeyPressed?.Invoke(this, args); };
         }
 
-        public void RegisterHotKey(ModifierKeys modifier, Keys key)
+        public void RegisterHotKey(KeyboardModifiers modifier, Keys key)
         {
             _currentId += 1;
 
@@ -77,28 +46,5 @@ namespace AutoClicker.Services
         }
 
         #endregion
-    }
-
-    public class KeyPressedEventArgs : EventArgs
-    {
-        internal KeyPressedEventArgs(ModifierKeys modifier, Keys key)
-        {
-            Modifier = modifier;
-            Key = key;
-        }
-
-        public ModifierKeys Modifier { get; }
-
-        public Keys Key { get; }
-    }
-
-    [Flags]
-    public enum ModifierKeys : uint
-    {
-        None = 0,
-        Alt = 1,
-        Control = 2,
-        Shift = 4,
-        Win = 8
     }
 }
