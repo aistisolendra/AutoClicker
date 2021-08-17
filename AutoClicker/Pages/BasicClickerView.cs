@@ -20,7 +20,7 @@ namespace AutoClicker.Pages
         private const int PositionCheckInterval = 50;
 
         public BasicClickerView(BasicClicker basicClicker, Bindable bindable, MouseManager mouseManager,
-            KeyboardManager keyboardManager, Settings settings)
+            Settings settings)
         {
             InitializeComponent();
             _basicClicker = basicClicker;
@@ -37,7 +37,12 @@ namespace AutoClicker.Pages
 
         private void HandleBindEvents()
         {
-            _settings.BasicClickerBinds.StartBind.KeyPressed += Bind_StartPressed;
+            _settings.BasicClickerBinds.StartBind.KeyPressed += Bind_Start;
+            _settings.BasicClickerBinds.StopBind.KeyPressed += Bind_Stop;
+            _settings.BasicClickerBinds.VisualizeBind.KeyPressed += Bind_Visualize;
+            _settings.BasicClickerBinds.StartCheckingBind.KeyPressed += Bind_CheckPosition;
+            _settings.BasicClickerBinds.CopyPositionBind.KeyPressed += Bind_CopyPosition;
+            _settings.BasicClickerBinds.ClickPositionBind.KeyPressed += Bind_ClickPosition;
         }
 
         private void PopulateComboBoxes()
@@ -58,7 +63,7 @@ namespace AutoClicker.Pages
             _basicClicker.CheckCursorPosition.Timer.Tick += OnElapsedCheckPos;
 
             _basicClicker.ClickPosition.Timer.Interval = PositionCheckInterval;
-            _basicClicker.ClickPosition.Timer.Tick += OnElapsedGetPosClick;
+            _basicClicker.ClickPosition.Timer.Tick += OnElapsedGetPos;
 
             _basicClicker.BasicClickerTimer.Tick += OnElapsedClick;
         }
@@ -220,6 +225,46 @@ namespace AutoClicker.Pages
 
         private void CheckCursorPositionButton_Click(object sender, EventArgs e)
         {
+            HandleCheckPosition();
+        }
+
+        private void CheckCursorCopyPosition_Click(object sender, EventArgs e)
+        {
+            HandleCopyPosition();
+        }
+
+        private void StartButton_Click(object sender, EventArgs e)
+        {
+            HandleStart();
+        }
+
+        private void StopButton_Click(object sender, EventArgs e)
+        {
+            HandleStop();
+        }
+
+        private void GetPositionButton_Click(object sender, EventArgs e)
+        {
+            HandleClickPosition();
+        }
+
+        private void HandleClickPosition()
+        {
+            bool state = _basicClicker.ClickPosition.Timer.Enabled;
+            if (!state)
+            {
+                GetPositionButton.Text = "Stop";
+                _basicClicker.ClickPosition.Timer.Start();
+            }
+            else
+            {
+                GetPositionButton.Text = "Get Position";
+                _basicClicker.ClickPosition.Timer.Stop();
+            }
+        }
+
+        private void HandleCheckPosition()
+        {
             bool state = _basicClicker.CheckCursorPosition.Timer.Enabled;
             if (!state)
             {
@@ -233,23 +278,13 @@ namespace AutoClicker.Pages
             }
         }
 
-        private void CheckCursorCopyPosition_Click(object sender, EventArgs e)
+        private void HandleCopyPosition()
         {
             Clipboard.SetText(
                 $"{_basicClicker.CheckCursorPosition.MousePos.X},{_basicClicker.CheckCursorPosition.MousePos.Y}");
         }
 
-        private void StartButton_Click(object sender, EventArgs e)
-        {
-            HandleClick();
-        }
-
-        private void StopButton_Click(object sender, EventArgs e)
-        {
-            _basicClicker.BasicClickerTimer.Stop();
-        }
-
-        private void HandleClick()
+        private void HandleStart()
         {
             _basicClicker.ClickTimes = (int) _basicClicker.ClickOptions.ClickType + 1;
             _basicClicker.BasicClickerTimer.Interval = _basicClicker.TimeInterval.ToMs();
@@ -259,6 +294,12 @@ namespace AutoClicker.Pages
                 TimesClickedNumericBox.Value = 0;
                 _basicClicker.BasicClickerTimer.Start();
             }
+        }
+
+        private void HandleStop()
+        {
+            if (_basicClicker.BasicClickerTimer.Enabled)
+                _basicClicker.BasicClickerTimer.Stop();
         }
 
         private void HandleClickRepeat()
@@ -283,15 +324,31 @@ namespace AutoClicker.Pages
             }
         }
 
-        private void GetPositionButton_Click(object sender, EventArgs e)
+        private void Bind_Start(object sender, KeyPressedEventArgs e)
         {
-            if (!_basicClicker.ClickPosition.Timer.Enabled)
-                _basicClicker.ClickPosition.Timer.Start();
+            HandleStart();
         }
 
-        private void Bind_StartPressed(object sender, KeyPressedEventArgs e)
+        private void Bind_Stop(object sender, KeyPressedEventArgs e)
         {
-            HandleClick();
+            HandleStop();
+        }
+
+        private void Bind_Visualize(object sender, KeyPressedEventArgs e) { }
+
+        private void Bind_CheckPosition(object sender, KeyPressedEventArgs e)
+        {
+            HandleCheckPosition();
+        }
+
+        private void Bind_CopyPosition(object sender, KeyPressedEventArgs e)
+        {
+            HandleCopyPosition();
+        }
+
+        private void Bind_ClickPosition(object sender, KeyPressedEventArgs e)
+        {
+            HandleClickPosition();
         }
 
         private void OnElapsedCheckPos(object sender, EventArgs e)
@@ -302,7 +359,7 @@ namespace AutoClicker.Pages
             CursorPositionYNumericBox.Value = position.Y;
         }
 
-        private void OnElapsedGetPosClick(object sender, EventArgs e)
+        private void OnElapsedGetPos(object sender, EventArgs e)
         {
             var position = _mouseManager.GetCursorPosition();
 

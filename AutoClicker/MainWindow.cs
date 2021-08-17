@@ -16,7 +16,6 @@ namespace AutoClicker
         // Services
         private static readonly Bindable Bindable = new();
         private static readonly MouseManager MouseManager = new();
-        private static readonly KeyboardManager KeyboardManager = new();
 
         // Models
         private static readonly BasicClicker BasicClicker = new();
@@ -24,7 +23,7 @@ namespace AutoClicker
 
         // Views
         private readonly BasicClickerView _basicClickerViewPage =
-            new(BasicClicker, Bindable, MouseManager, KeyboardManager, Settings);
+            new(BasicClicker, Bindable, MouseManager, Settings);
 
         private readonly AdvancedClicker _advancedClickerPage = new();
         private readonly List<UserControl> _userControls = new();

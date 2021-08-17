@@ -1,6 +1,6 @@
-﻿using System.Windows.Forms;
-using AutoClicker.Enums;
+﻿using AutoClicker.Enums;
 using AutoClicker.Services;
+using Keys = System.Windows.Forms.Keys;
 
 namespace AutoClicker.Models.ClickerModels
 {
@@ -11,6 +11,7 @@ namespace AutoClicker.Models.ClickerModels
         public KeyboardManager StartBind { get; set; }
         public KeyboardManager StopBind { get; set; }
         public KeyboardManager VisualizeBind { get; set; }
+        public KeyboardManager ClickPositionBind { get; set; }
 
         public BasicClickerBinds()
         {
@@ -19,6 +20,7 @@ namespace AutoClicker.Models.ClickerModels
             StartBind = new KeyboardManager();
             StopBind = new KeyboardManager();
             VisualizeBind = new KeyboardManager();
+            ClickPositionBind = new KeyboardManager();
             OnCreationSetBinds();
         }
 
@@ -29,6 +31,7 @@ namespace AutoClicker.Models.ClickerModels
             StartBind.RegisterHotKey(KeyboardModifiers.Control, Keys.F1);
             StopBind.RegisterHotKey(KeyboardModifiers.Control, Keys.F2);
             VisualizeBind.RegisterHotKey(KeyboardModifiers.Control, Keys.F3);
+            ClickPositionBind.RegisterHotKey(KeyboardModifiers.Control, Keys.F4);
         }
     }
 }
