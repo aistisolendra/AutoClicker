@@ -19,9 +19,11 @@ namespace AutoClicker.Models
 
         public int ToMs()
         {
-            return (int) TimeSpan.FromHours(Hours).TotalMilliseconds +
-                   (int) TimeSpan.FromMinutes(Minutes).TotalMilliseconds +
-                   (int) TimeSpan.FromSeconds(Seconds).TotalMilliseconds + Milliseconds;
+            int result = (int) TimeSpan.FromHours(Hours).TotalMilliseconds +
+                         (int) TimeSpan.FromMinutes(Minutes).TotalMilliseconds +
+                         (int) TimeSpan.FromSeconds(Seconds).TotalMilliseconds + Milliseconds;
+
+            return result <= 0 ? 1 : result;
         }
     }
 }
