@@ -1,6 +1,6 @@
 ﻿using AutoClicker.Enums;
 
-namespace AutoClicker.Models
+namespace AutoClicker.Models.MouseModels
 {
     public class MouseEvents
     {

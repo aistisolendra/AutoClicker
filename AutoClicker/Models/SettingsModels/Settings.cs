@@ -1,4 +1,6 @@
-﻿namespace AutoClicker.Models
+﻿using AutoClicker.Models.ClickerModels;
+
+namespace AutoClicker.Models.SettingsModels
 {
     public class Settings
     {

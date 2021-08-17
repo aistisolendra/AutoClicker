@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace AutoClicker.Models
+namespace AutoClicker.Models.ClickerModels
 {
     public class BasicClicker
     {

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using AutoClicker.Enums;
-using AutoClicker.Models;
+using AutoClicker.Models.ClickerModels;
+using AutoClicker.Models.MouseModels;
 using AutoClicker.Structs;
 
 namespace AutoClicker.Services

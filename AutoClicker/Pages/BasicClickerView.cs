@@ -3,6 +3,9 @@ using System.Timers;
 using System.Windows.Forms;
 using AutoClicker.Enums;
 using AutoClicker.Models;
+using AutoClicker.Models.ClickerModels;
+using AutoClicker.Models.EventModels;
+using AutoClicker.Models.SettingsModels;
 using AutoClicker.Services;
 
 namespace AutoClicker.Pages

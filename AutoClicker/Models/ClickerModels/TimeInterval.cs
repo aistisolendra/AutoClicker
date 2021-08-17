@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AutoClicker.Models
+namespace AutoClicker.Models.ClickerModels
 {
     public class TimeInterval
     {

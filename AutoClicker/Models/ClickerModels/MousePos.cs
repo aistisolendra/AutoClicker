@@ -1,4 +1,4 @@
-﻿namespace AutoClicker.Models
+﻿namespace AutoClicker.Models.ClickerModels
 {
     public class MousePos
     {

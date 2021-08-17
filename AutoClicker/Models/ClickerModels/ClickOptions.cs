@@ -1,7 +1,6 @@
-﻿using System;
-using AutoClicker.Enums;
+﻿using AutoClicker.Enums;
 
-namespace AutoClicker.Models
+namespace AutoClicker.Models.ClickerModels
 {
     public class ClickOptions
     {

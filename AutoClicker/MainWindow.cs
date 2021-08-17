@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using AutoClicker.Models;
+using AutoClicker.Models.ClickerModels;
+using AutoClicker.Models.SettingsModels;
 using AutoClicker.Pages;
 using AutoClicker.Services;
 

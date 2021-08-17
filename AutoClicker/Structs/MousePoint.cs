@@ -1,5 +1,5 @@
 ﻿using System.Runtime.InteropServices;
-using AutoClicker.Models;
+using AutoClicker.Models.ClickerModels;
 
 namespace AutoClicker.Structs
 {

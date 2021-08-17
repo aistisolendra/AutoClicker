@@ -1,7 +1,7 @@
 ﻿using System.Windows.Forms;
 using AutoClicker.Enums;
 
-namespace AutoClicker.Models
+namespace AutoClicker.Models.ClickerModels
 {
     public class ClickPosition
     {
