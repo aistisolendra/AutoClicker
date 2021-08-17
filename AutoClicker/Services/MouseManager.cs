@@ -10,11 +10,6 @@ namespace AutoClicker.Services
     {
         private readonly Random _rnd;
 
-        public MouseManager()
-        {
-            _rnd = new Random();
-        }
-
         [DllImport("user32.dll", EntryPoint = "SetCursorPos")]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool SetCursorPos(int x, int y);
@@ -25,6 +20,11 @@ namespace AutoClicker.Services
 
         [DllImport("user32.dll")]
         private static extern void mouse_event(int dwFlags, int dx, int dy, int dwData, int dwExtraInfo);
+
+        public MouseManager()
+        {
+            _rnd = new Random();
+        }
 
         public void SetCursorPosition(int x, int y)
         {
