@@ -2,7 +2,7 @@
 using AutoClicker.Services;
 using Keys = System.Windows.Forms.Keys;
 
-namespace AutoClicker.Models.ClickerModels
+namespace AutoClicker.Models.SettingsModels
 {
     public class BasicClickerBinds
     {

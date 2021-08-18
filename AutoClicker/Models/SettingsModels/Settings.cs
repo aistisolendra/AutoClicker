@@ -1,6 +1,4 @@
-﻿using AutoClicker.Models.ClickerModels;
-
-namespace AutoClicker.Models.SettingsModels
+﻿namespace AutoClicker.Models.SettingsModels
 {
     public class Settings
     {
