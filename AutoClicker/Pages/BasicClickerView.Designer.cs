@@ -1289,6 +1289,7 @@ namespace AutoClicker.Pages
             this.VisualizeButton.TabIndex = 2;
             this.VisualizeButton.Text = "Visualize clicker";
             this.VisualizeButton.UseVisualStyleBackColor = true;
+            this.VisualizeButton.Click += new System.EventHandler(this.VisualizeButton_Click);
             // 
             // StopButton
             // 

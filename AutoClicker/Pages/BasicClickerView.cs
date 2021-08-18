@@ -1,32 +1,38 @@
 ﻿using System;
-using System.Timers;
 using System.Windows.Forms;
 using AutoClicker.Enums;
-using AutoClicker.Models;
 using AutoClicker.Models.ClickerModels;
 using AutoClicker.Models.EventModels;
 using AutoClicker.Models.SettingsModels;
+using AutoClicker.Models.VisualizationModels;
 using AutoClicker.Services;
 
 namespace AutoClicker.Pages
 {
     public partial class BasicClickerView : UserControl
     {
+        // Models
         private readonly BasicClicker _basicClicker;
+        private readonly Visualization _visualization;
+        private readonly Settings _settings;
+
+        // Services
         private readonly Bindable _bindable;
         private readonly MouseManager _mouseManager;
-        private readonly Settings _settings;
+        private readonly DrawingManager _drawingManager;
 
         private const int PositionCheckInterval = 50;
 
         public BasicClickerView(BasicClicker basicClicker, Bindable bindable, MouseManager mouseManager,
-            Settings settings)
+            DrawingManager drawingManager, Settings settings, Visualization visualization)
         {
             InitializeComponent();
             _basicClicker = basicClicker;
             _bindable = bindable;
             _mouseManager = mouseManager;
+            _drawingManager = drawingManager;
             _settings = settings;
+            _visualization = visualization;
 
             PopulateComboBoxes();
             HandleModelBindings();
@@ -248,6 +254,17 @@ namespace AutoClicker.Pages
             HandleClickPosition();
         }
 
+        private void VisualizeButton_Click(object sender, EventArgs e)
+        {
+            HandleVisualization();
+        }
+
+        private void HandleVisualization()
+        {
+            _drawingManager.Visualize(_visualization.BasicClickerVisualization,
+                _basicClicker.ClickPosition.ClickPositionBounds, BackColor);
+        }
+
         private void HandleClickPosition()
         {
             bool state = _basicClicker.ClickPosition.Timer.Enabled;
@@ -334,7 +351,10 @@ namespace AutoClicker.Pages
             HandleStop();
         }
 
-        private void Bind_Visualize(object sender, KeyPressedEventArgs e) { }
+        private void Bind_Visualize(object sender, KeyPressedEventArgs e)
+        {
+            HandleVisualization();
+        }
 
         private void Bind_CheckPosition(object sender, KeyPressedEventArgs e)
         {
