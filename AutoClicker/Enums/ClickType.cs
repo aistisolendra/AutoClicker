@@ -1,9 +1,9 @@
 ﻿namespace AutoClicker.Enums
 {
-    public enum ClickType
+    public enum ClickType : int
     {
-        Single,
-        Double,
-        Triple
+        Single = 1,
+        Double = 2,
+        Triple = 3
     }
 }

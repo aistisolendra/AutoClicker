@@ -303,7 +303,6 @@ namespace AutoClicker.Pages
 
         private void HandleStart()
         {
-            _basicClicker.ClickTimes = (int) _basicClicker.ClickOptions.ClickType + 1;
             _basicClicker.BasicClickerTimer.Interval = _basicClicker.TimeInterval.ToMs();
 
             if (!_basicClicker.BasicClickerTimer.Enabled)

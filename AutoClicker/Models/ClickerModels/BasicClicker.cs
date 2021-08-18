@@ -11,7 +11,6 @@ namespace AutoClicker.Models.ClickerModels
         public ClickOptions ClickOptions { get; set; }
         public BasicStatistics BasicStatistics { get; set; }
         public Timer BasicClickerTimer { get; set; }
-        public int ClickTimes { get; set; }
 
         public BasicClicker()
         {
@@ -22,7 +21,6 @@ namespace AutoClicker.Models.ClickerModels
             ClickOptions = new ClickOptions();
             BasicStatistics = new BasicStatistics();
             BasicClickerTimer = new Timer();
-            ClickTimes = 1;
         }
     }
 }
