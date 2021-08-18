@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using AutoClicker.Models;
 using AutoClicker.Models.ClickerModels;
 using AutoClicker.Models.SettingsModels;
+using AutoClicker.Models.VisualizationModels;
 using AutoClicker.Pages;
 using AutoClicker.Services;
 
@@ -16,14 +16,16 @@ namespace AutoClicker
         // Services
         private static readonly Bindable Bindable = new();
         private static readonly MouseManager MouseManager = new();
+        private static readonly DrawingManager DrawingManager = new();
 
         // Models
         private static readonly BasicClicker BasicClicker = new();
         private static readonly Settings Settings = new();
+        private static readonly Visualization Visualization = new();
 
         // Views
         private readonly BasicClickerView _basicClickerViewPage =
-            new(BasicClicker, Bindable, MouseManager, Settings);
+            new(BasicClicker, Bindable, MouseManager, DrawingManager, Settings, Visualization);
 
         private readonly AdvancedClicker _advancedClickerPage = new();
         private readonly List<UserControl> _userControls = new();
