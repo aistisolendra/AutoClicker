@@ -303,10 +303,9 @@ namespace AutoClicker.Pages
 
         private void HandleStart()
         {
-            _basicClicker.BasicClickerTimer.Interval = _basicClicker.TimeInterval.ToMs();
-
             if (!_basicClicker.BasicClickerTimer.Enabled)
             {
+                _basicClicker.BasicClickerTimer.Interval = _basicClicker.TimeInterval.ToMs();
                 TimesClickedNumericBox.Value = 0;
                 _basicClicker.BasicClickerTimer.Start();
             }
@@ -323,14 +322,14 @@ namespace AutoClicker.Pages
             switch (_basicClicker.ClickRepeat.ClickRepeatType)
             {
                 case ClickRepeatType.RepeatUntilStopped:
-                    ++TimesClickedNumericBox.Value;
+                    TimesClickedNumericBox.Value += (int) _basicClicker.ClickOptions.ClickType;
                     break;
 
                 case ClickRepeatType.RepeatTimes:
                 {
-                    decimal temp = ++TimesClickedNumericBox.Value;
+                    TimesClickedNumericBox.Value += (int) _basicClicker.ClickOptions.ClickType;
 
-                    if (temp >= _basicClicker.ClickRepeat.ClickRepeatTimes)
+                    if (TimesClickedNumericBox.Value >= _basicClicker.ClickRepeat.ClickRepeatTimes)
                         _basicClicker.BasicClickerTimer.Stop();
                     break;
                 }
