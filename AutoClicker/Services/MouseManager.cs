@@ -44,16 +44,16 @@ namespace AutoClicker.Services
 
         public void Click(BasicClicker clicker)
         {
-            var mouseEvents = GetMouseEvents(clicker);
-            var position = HandlePosition(clicker);
+            clicker.SelectedMouseEvents ??= GetMouseEvents(clicker);
+            var position = HandlePositionSelect(clicker);
 
             for (int i = 0; i < (int) clicker.ClickOptions.ClickType; ++i)
             {
                 if (clicker.ClickPosition.ClickPositionType != ClickPositionType.CurrentPosition)
                     SetCursorPosition(position);
 
-                MouseEvent(mouseEvents.MouseDown, position);
-                MouseEvent(mouseEvents.MouseUp, position);
+                MouseEvent(clicker.SelectedMouseEvents.MouseDown, position);
+                MouseEvent(clicker.SelectedMouseEvents.MouseUp, position);
             }
         }
 
@@ -70,7 +70,7 @@ namespace AutoClicker.Services
             };
         }
 
-        private MousePoint HandlePosition(BasicClicker clicker)
+        private MousePoint HandlePositionSelect(BasicClicker clicker)
         {
             return clicker.ClickPosition.ClickPositionType switch
             {
