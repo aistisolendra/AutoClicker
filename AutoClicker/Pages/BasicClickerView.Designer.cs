@@ -118,6 +118,7 @@ namespace AutoClicker.Pages
             this.TimesClickedLabel = new System.Windows.Forms.Label();
             this.WorkingTimeLabel = new System.Windows.Forms.Label();
             this.TimesClickedNumericBox = new System.Windows.Forms.NumericUpDown();
+            this.TimeWorking = new System.Windows.Forms.Label();
             this.PageLayout.SuspendLayout();
             this.ClickOptionsLayout.SuspendLayout();
             this.ClickOptionsLeftLayout.SuspendLayout();
@@ -1352,6 +1353,7 @@ namespace AutoClicker.Pages
             this.StatisticsLayout.Controls.Add(this.TimesClickedLabel, 0, 0);
             this.StatisticsLayout.Controls.Add(this.WorkingTimeLabel, 0, 1);
             this.StatisticsLayout.Controls.Add(this.TimesClickedNumericBox, 1, 0);
+            this.StatisticsLayout.Controls.Add(this.TimeWorking, 1, 1);
             this.StatisticsLayout.Location = new System.Drawing.Point(3, 23);
             this.StatisticsLayout.Name = "StatisticsLayout";
             this.StatisticsLayout.RowCount = 2;
@@ -1394,6 +1396,16 @@ namespace AutoClicker.Pages
             this.TimesClickedNumericBox.Name = "TimesClickedNumericBox";
             this.TimesClickedNumericBox.Size = new System.Drawing.Size(339, 23);
             this.TimesClickedNumericBox.TabIndex = 3;
+            // 
+            // TimeWorking
+            // 
+            this.TimeWorking.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.TimeWorking.AutoSize = true;
+            this.TimeWorking.Location = new System.Drawing.Point(103, 79);
+            this.TimeWorking.Name = "TimeWorking";
+            this.TimeWorking.Size = new System.Drawing.Size(339, 15);
+            this.TimeWorking.TabIndex = 4;
+            this.TimeWorking.Text = "00:00:00";
             // 
             // BasicClickerView
             // 
@@ -1560,5 +1572,6 @@ namespace AutoClicker.Pages
         private System.Windows.Forms.Button VisualizeButton;
         private System.Windows.Forms.Button CheckCursorCopyPosition;
         private System.Windows.Forms.NumericUpDown TimesClickedNumericBox;
+        private System.Windows.Forms.Label TimeWorking;
     }
 }

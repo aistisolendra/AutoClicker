@@ -65,13 +65,15 @@ namespace AutoClicker.Pages
 
         private void HandleTimerEvents()
         {
-            _basicClicker.CheckCursorPosition.Timer.Interval = PositionCheckInterval;
-            _basicClicker.CheckCursorPosition.Timer.Tick += OnElapsedCheckPos;
+            _basicClicker.CursorPosition.Timer.Interval = PositionCheckInterval;
+            _basicClicker.CursorPosition.Timer.Tick += OnElapsedCheckPos;
 
             _basicClicker.ClickPosition.Timer.Interval = PositionCheckInterval;
             _basicClicker.ClickPosition.Timer.Tick += OnElapsedGetPos;
 
             _basicClicker.BasicClickerTimer.Tick += OnElapsedClick;
+
+            _basicClicker.BasicStatistics.Timer.Tick += OnElapsedAddTime;
         }
 
         private void HandleModelBindings()
@@ -103,9 +105,9 @@ namespace AutoClicker.Pages
         private void SetCursorPositionCheckBindings()
         {
             CursorPositionXNumericBox.DataBindings.Add(
-                _bindable.CreateTextBind(_basicClicker.CheckCursorPosition.MousePos, "X"));
+                _bindable.CreateTextBind(_basicClicker.CursorPosition.MousePos, "X"));
             CursorPositionYNumericBox.DataBindings.Add(
-                _bindable.CreateTextBind(_basicClicker.CheckCursorPosition.MousePos, "Y"));
+                _bindable.CreateTextBind(_basicClicker.CursorPosition.MousePos, "Y"));
         }
 
         private void SetClickPositionBindings()
@@ -191,6 +193,8 @@ namespace AutoClicker.Pages
         {
             TimesClickedNumericBox.DataBindings.Add(_bindable.CreateTextBind(_basicClicker.BasicStatistics,
                 "TimesClicked"));
+            TimeWorking.DataBindings.Add(_bindable.CreateTextBind(_basicClicker.BasicStatistics,
+                "TimeWorking"));
         }
 
         private void RepeatTimesButton_CheckedChanged(object sender, EventArgs e)
@@ -282,23 +286,23 @@ namespace AutoClicker.Pages
 
         private void HandleCheckPosition()
         {
-            bool state = _basicClicker.CheckCursorPosition.Timer.Enabled;
+            bool state = _basicClicker.CursorPosition.Timer.Enabled;
             if (!state)
             {
                 CheckCursorPositionButton.Text = "Click To Stop";
-                _basicClicker.CheckCursorPosition.Timer.Start();
+                _basicClicker.CursorPosition.Timer.Start();
             }
             else
             {
                 CheckCursorPositionButton.Text = "Start Checking";
-                _basicClicker.CheckCursorPosition.Timer.Stop();
+                _basicClicker.CursorPosition.Timer.Stop();
             }
         }
 
         private void HandleCopyPosition()
         {
             Clipboard.SetText(
-                $"{_basicClicker.CheckCursorPosition.MousePos.X},{_basicClicker.CheckCursorPosition.MousePos.Y}");
+                $"{_basicClicker.CursorPosition.MousePos.X},{_basicClicker.CursorPosition.MousePos.Y}");
         }
 
         private void HandleStart()
@@ -308,13 +312,21 @@ namespace AutoClicker.Pages
                 _basicClicker.BasicClickerTimer.Interval = _basicClicker.TimeInterval.ToMs();
                 TimesClickedNumericBox.Value = 0;
                 _basicClicker.BasicClickerTimer.Start();
+
+                TimeWorking.Text = "00:00:00";
+                _basicClicker.BasicStatistics.Timer.Start();
             }
         }
 
         private void HandleStop()
         {
             if (_basicClicker.BasicClickerTimer.Enabled)
+            {
                 _basicClicker.BasicClickerTimer.Stop();
+                _basicClicker.BasicStatistics.Timer.Stop();
+
+                _basicClicker.SelectedMouseEvents = null;
+            }
         }
 
         private void HandleClickRepeat()
@@ -389,6 +401,12 @@ namespace AutoClicker.Pages
         {
             _mouseManager.Click(_basicClicker);
 
+            HandleClickRepeat();
+        }
+
+        private void OnElapsedAddTime(object sender, EventArgs e)
+        {
+            _basicClicker.BasicStatistics.TimeWorking.Add(TimeSpan.FromSeconds(1));
             HandleClickRepeat();
         }
     }

@@ -2,13 +2,13 @@
 
 namespace AutoClicker.Models.ClickerModels
 {
-    public class CheckCursorPosition
+    public class CursorPosition
     {
         public bool CheckMouseEnabled { get; set; }
         public MousePos MousePos { get; set; }
         public Timer Timer { get; set; }
 
-        public CheckCursorPosition()
+        public CursorPosition()
         {
             CheckMouseEnabled = false;
             MousePos = new MousePos();
